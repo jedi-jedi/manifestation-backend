@@ -1,0 +1,21 @@
+services:
+  - type: web
+    name: backend
+    env: node
+    runtime:
+      version: '23.3.0'
+    build:
+      command: corepack enable && corepack prepare yarn@4.5.1 --activate && yarn install
+    start:
+      command: corepack enable && yarn start
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: '5000'
+    healthCheck:
+      path: '/'
+      interval: 10
+      timeout: 5
+      retries: 3
+    packageManager: yarn@4.5.1
